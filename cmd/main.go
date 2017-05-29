@@ -12,11 +12,9 @@ import (
 var msg = []byte(`{"body":{"code":"i","fileType":"python","line":0,"column":1,"wordToComplete":"i","offset":2}}`)
 var count = 1000
 
-func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
+func runSockets() {
 	latency := make([]int, count)
-
-	conn := carrot.CreateSocket("autosuggest.hackerrank.com", "wss")
+	conn := carrot.CreateSocket("localhost:8000", "ws")
 	iface := carrot.Completion{conn, 0, latency}
 
 	iface.Conn.WriteMessage(websocket.TextMessage, msg)
@@ -31,5 +29,13 @@ func main() {
 			log.Printf("recv: %s", message)
 		}
 	}()
+}
+
+func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	for i := 0; i <= 100; i++ {
+		go runSockets()
+	}
+
 	fmt.Scanln()
 }

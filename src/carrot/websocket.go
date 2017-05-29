@@ -1,7 +1,6 @@
 package carrot
 
 import (
-	"flag"
 	"log"
 	"net/url"
 
@@ -20,13 +19,13 @@ type completion struct {
 	}
 }
 
-func getAddr(addr string) *string {
-	return flag.String("addr", addr, "http service address")
+func getAddr(addr string) string {
+	return addr
 }
 
 // CreateSocket returns a socket instance
 func CreateSocket(addr string, urlProto string) *websocket.Conn {
-	wsaddr := url.URL{Scheme: urlProto, Host: *getAddr(addr), Path: "/"}
+	wsaddr := url.URL{Scheme: urlProto, Host: getAddr(addr), Path: "/"}
 
 	c, _, err := websocket.DefaultDialer.Dial(wsaddr.String(), nil)
 	if err != nil {
