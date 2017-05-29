@@ -14,7 +14,7 @@ var count = 1000
 
 func runSockets() {
 	latency := make([]int, count)
-	conn := carrot.CreateSocket("localhost:8000", "ws")
+	conn := carrot.CreateSocket("autosuggest.hackerrank.com", "wss")
 	iface := carrot.Completion{conn, 0, latency}
 
 	iface.Conn.WriteMessage(websocket.TextMessage, msg)
@@ -33,9 +33,11 @@ func runSockets() {
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	for i := 0; i <= 100; i++ {
-		go runSockets()
-	}
 
+	// for i := 0; i <= 20; i++ {
+	// 	go runSockets()
+	// }
+
+	carrot.StartHTTPServer("8900")
 	fmt.Scanln()
 }
