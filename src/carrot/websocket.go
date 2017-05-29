@@ -25,8 +25,8 @@ func getAddr(addr string) *string {
 }
 
 // CreateSocket returns a socket instance
-func CreateSocket(addr string) *websocket.Conn {
-	wsaddr := url.URL{Scheme: "wss", Host: *getAddr(addr), Path: "/"}
+func CreateSocket(addr string, urlProto string) *websocket.Conn {
+	wsaddr := url.URL{Scheme: urlProto, Host: *getAddr(addr), Path: "/"}
 
 	c, _, err := websocket.DefaultDialer.Dial(wsaddr.String(), nil)
 	if err != nil {
