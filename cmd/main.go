@@ -37,7 +37,7 @@ func main() {
 	// for i := 0; i <= 20; i++ {
 	// 	go runSockets()
 	// }
-
+	carrot.LoadTest("localhost:8000", "ws", 40, msg, 3)
 	carrot.StartHTTPServer("8900")
 	fmt.Scanln()
 }
