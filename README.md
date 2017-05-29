@@ -1,2 +1,2 @@
 # Carrot
-Distributed WebSocket Load Testing Framework
+Distributed WebSocket and XHR Load Testing Framework in Go
