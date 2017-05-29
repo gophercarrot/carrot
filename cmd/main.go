@@ -4,18 +4,26 @@ import (
 	"carrot"
 	"fmt"
 	"log"
+	"runtime"
 
 	"github.com/gorilla/websocket"
 )
 
+var msg = []byte(`{"body":{"code":"i","fileType":"python","line":0,"column":1,"wordToComplete":"i","offset":2}}`)
+var count = 1000
+
 func main() {
-	c := carrot.CreateSocket("localhost:8000", "ws")
-	s := []byte(`{"body":{"code":"i","fileType":"python","line":0,"column":1,"wordToComplete":"i","offset":2}}`)
-	c.WriteMessage(websocket.TextMessage, s)
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	latency := make([]int, count)
+
+	conn := carrot.CreateSocket("autosuggest.hackerrank.com", "wss")
+	iface := carrot.Completion{conn, 0, latency}
+
+	iface.Conn.WriteMessage(websocket.TextMessage, msg)
+
 	go func() {
-		defer c.Close()
 		for {
-			_, message, err := c.ReadMessage()
+			_, message, err := iface.Conn.ReadMessage()
 			if err != nil {
 				log.Println("read:", err)
 				return
