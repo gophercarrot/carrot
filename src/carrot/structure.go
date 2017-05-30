@@ -1,11 +1,19 @@
 package carrot
 
 import (
-	"github.com/gorilla/websocket"
+	"time"
 )
 
-type Completion struct {
-	Conn    *websocket.Conn
-	Count   int
-	Latency []int
+type Base struct {
+	URL, Proto string
+	Count      int
+	Msg        []byte
+	Delay      int
+}
+
+type Routine struct {
+	SendTime    time.Time
+	ReceiveTime time.Time
+	Diff        time.Duration // milliseconds
+	ReceivedMsg string
 }

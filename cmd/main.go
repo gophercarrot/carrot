@@ -3,41 +3,22 @@ package main
 import (
 	"carrot"
 	"fmt"
-	"log"
 	"runtime"
-
-	"github.com/gorilla/websocket"
 )
 
 var msg = []byte(`{"body":{"code":"i","fileType":"python","line":0,"column":1,"wordToComplete":"i","offset":2}}`)
 var count = 1000
-
-func runSockets() {
-	latency := make([]int, count)
-	conn := carrot.CreateSocket("autosuggest.hackerrank.com", "wss")
-	iface := carrot.Completion{conn, 0, latency}
-
-	iface.Conn.WriteMessage(websocket.TextMessage, msg)
-
-	go func() {
-		for {
-			_, message, err := iface.Conn.ReadMessage()
-			if err != nil {
-				log.Println("read:", err)
-				return
-			}
-			log.Printf("recv: %s", message)
-		}
-	}()
-}
+var httpPort = 8900
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-
+	fmt.Println("Running HTTP Server at", httpPort)
 	// for i := 0; i <= 20; i++ {
 	// 	go runSockets()
 	// }
-	carrot.LoadTest("localhost:8000", "ws", 40, msg, 3)
+	currentTest := &carrot.Base{"localhost:8000", "ws", 10, msg, 2}
+	//currentTest1 := &carrot.Base{"autosuggest.hackerrank.com", "wss", 10000, msg, 50000}
+	carrot.LoadTest(currentTest)
 	carrot.StartHTTPServer("8900")
 	fmt.Scanln()
 }
