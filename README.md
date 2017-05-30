@@ -22,6 +22,7 @@ go run cmd/main.go
 ```	
 currentTest := &carrot.Base{"autosuggest.hackerrank.com", "wss", 1000, msg, 2, 30}
 
+wss -> protocol use 'ws' for localhost
 1000 -> number of requests
 msg -> payload to send
 2 -> number of seconds to wait before writing to websockets
