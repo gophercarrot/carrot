@@ -48,7 +48,7 @@ func LoadTest(base *Base, latencyCh chan []float64, timeCh chan []time.Time) {
 	var latency []float64
 	var timeSeries []time.Time
 
-	for range time.Tick(time.Millisecond * time.Duration(20)) {
+	for range time.Tick(time.Millisecond * time.Duration(base.TickDelay)) {
 		routine := &Routine{time.Now(), time.Now(), 0, ""}
 		go singleTest(globalCounter, queue, base, routine)
 		localCounter++

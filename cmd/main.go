@@ -17,8 +17,8 @@ func main() {
 	latency := make(chan []float64)
 	timeSeries := make(chan []time.Time)
 
-	currentTest := &carrot.Base{"localhost:8000", "ws", 100, msg, 2}
-	//currentTest := &carrot.Base{"autosuggest.hackerrank.com", "wss", 5000, msg, 5}
+	//currentTest := &carrot.Base{"localhost:8000", "ws", 600, msg, 2}
+	currentTest := &carrot.Base{"autosuggest.hackerrank.com", "wss", 1000, msg, 2, 30}
 	carrot.LoadTest(currentTest, latency, timeSeries)
 
 	data := <-latency

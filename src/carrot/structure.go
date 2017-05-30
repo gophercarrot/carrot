@@ -9,6 +9,7 @@ type Base struct {
 	Count      int
 	Msg        []byte
 	Delay      int
+	TickDelay  int
 }
 
 type Routine struct {
