@@ -28,6 +28,6 @@ msg -> payload to send
 30 -> number of milliseconds to wait before creating new websocket connection
 ```
 
-## After stats you should see screenshot which can be looked at http://localhost:8900/latency
+### After stats you should see screenshot which can be looked at http://localhost:8900/latency
 
 ![ScreenShot](https://github.com/interviewstreet/Carrot/blob/master/latency.png)
