@@ -13,7 +13,6 @@ var httpPort = 8900
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	fmt.Println("Running HTTP Server at", httpPort)
 	latency := make(chan []float64)
 	timeSeries := make(chan []time.Time)
 
@@ -24,6 +23,7 @@ func main() {
 	data := <-latency
 	timeData := <-timeSeries
 	fmt.Println(data, timeData)
+	fmt.Println("Running HTTP Server, Check /latency route at Port", httpPort)
 	carrot.StartHTTPServer("8900", data, timeData)
 	fmt.Scanln()
 }
