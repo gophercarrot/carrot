@@ -20,7 +20,7 @@ go run cmd/main.go
 
 ## Parameters in main.go
 ```	
-currentTest := &carrot.Base{"autosuggest.hackerrank.com", "wss", 1000, msg, 2, 30}
+currentTest := &carrot.Base{"example.com", "wss", 1000, msg, 2, 30}
 
 wss -> protocol use 'ws' for localhost
 1000 -> number of requests
