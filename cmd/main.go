@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var msg = []byte(`{"body":{"code":"i","fileType":"python","line":0,"column":1,"wordToComplete":"i","offset":2}}`)
+var msg = []byte(`msg payload`)
 var count = 1000
 var httpPort = 8900
 
