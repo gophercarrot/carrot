@@ -4,6 +4,7 @@ import (
 	"carrot"
 	"fmt"
 	"runtime"
+	"time"
 )
 
 var msg = []byte(`{"body":{"code":"i","fileType":"python","line":0,"column":1,"wordToComplete":"i","offset":2}}`)
@@ -13,12 +14,16 @@ var httpPort = 8900
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	fmt.Println("Running HTTP Server at", httpPort)
-	// for i := 0; i <= 20; i++ {
-	// 	go runSockets()
-	// }
-	currentTest := &carrot.Base{"localhost:8000", "ws", 10, msg, 2}
-	//currentTest1 := &carrot.Base{"autosuggest.hackerrank.com", "wss", 10000, msg, 50000}
-	carrot.LoadTest(currentTest)
-	carrot.StartHTTPServer("8900")
+	latency := make(chan []float64)
+	timeSeries := make(chan []time.Time)
+
+	currentTest := &carrot.Base{"localhost:8000", "ws", 100, msg, 2}
+	//currentTest := &carrot.Base{"autosuggest.hackerrank.com", "wss", 5000, msg, 5}
+	carrot.LoadTest(currentTest, latency, timeSeries)
+
+	data := <-latency
+	timeData := <-timeSeries
+	fmt.Println(data, timeData)
+	carrot.StartHTTPServer("8900", data, timeData)
 	fmt.Scanln()
 }

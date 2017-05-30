@@ -1,7 +1,6 @@
 package carrot
 
 import (
-	"fmt"
 	"log"
 	"sync"
 	"time"
@@ -40,14 +39,16 @@ func singleTest(counter *Counter, queue chan *Routine, base *Base, rout *Routine
 	queue <- <-doneCh
 }
 
-func LoadTest(base *Base) {
+func LoadTest(base *Base, latencyCh chan []float64, timeCh chan []time.Time) {
 
 	queue := make(chan *Routine, 1)
 	globalCounter := &Counter{0, sync.Mutex{}, 0, 0}
 	localCounter := 0
 
-	// wg.Add(base.Count)
-	for range time.Tick(time.Millisecond * time.Duration(10)) {
+	var latency []float64
+	var timeSeries []time.Time
+
+	for range time.Tick(time.Millisecond * time.Duration(20)) {
 		routine := &Routine{time.Now(), time.Now(), 0, ""}
 		go singleTest(globalCounter, queue, base, routine)
 		localCounter++
@@ -57,8 +58,15 @@ func LoadTest(base *Base) {
 	}
 
 	go func() {
+		bufferLimit := 0
 		for req := range queue {
-			fmt.Println(req.Diff)
+			latency = append(latency, req.Diff.Seconds()*1000)
+			timeSeries = append(timeSeries, req.SendTime)
+			bufferLimit++
+			if bufferLimit == base.Count {
+				latencyCh <- latency
+				timeCh <- timeSeries
+			}
 		}
 	}()
 
