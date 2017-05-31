@@ -10,6 +10,7 @@ type Base struct {
 	Msg        []byte
 	Delay      int
 	TickDelay  int
+	Path       string
 }
 
 type Routine struct {

@@ -30,7 +30,7 @@ func writeMsg(wsconn *websocket.Conn, base *Base, rout *Routine) {
 
 func singleTest(counter *Counter, queue chan *Routine, base *Base, rout *Routine) {
 	doneCh := make(chan *Routine)
-	conn, err := CreateSocket(base.URL, base.Proto, counter)
+	conn, err := CreateSocket(base.URL, base.Proto, base.Path, counter)
 	if err != nil {
 		return
 	}
