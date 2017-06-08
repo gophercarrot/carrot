@@ -1,5 +1,5 @@
 # Carrot
-Distributed WebSocket and XHR Load Testing Framework in Go
+Distributed WebSocket and HTTP Load Testing Framework in Go
 
 ### Highly Concurrent Load Testing Framework
 
