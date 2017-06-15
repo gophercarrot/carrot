@@ -1,10 +1,11 @@
 package main
 
 import (
-	"carrot"
 	"fmt"
 	"runtime"
 	"time"
+	
+	"github.com/interviewstreet/carrot"
 )
 
 var msg = []byte(`msg payload`)
