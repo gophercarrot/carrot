@@ -4,15 +4,25 @@ Distributed WebSocket and HTTP Load Testing Framework in Go
 ### Highly Concurrent Load Testing Framework
 
 ## Setup
-Add repo to gopath
+Properly setup $GOPATH
+
+## Fetch Dependencies
 
 ```
-GOPATH=$GOPATH:$PWD
 go get github.com/gorilla/websocket
 go get github.com/wcharczuk/go-chart
 ```
 
+## Fetch Carrot
+
+```
+go get -v github.com/interviewstreet/carrot
+```
+
 ## Running
+
+Go to $GOPATH/go/src/github.com/interviewstreet/carrot and run
+
 ```
 go run cmd/main.go
 ```
