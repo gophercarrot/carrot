@@ -16,12 +16,12 @@ go get github.com/wcharczuk/go-chart
 ## Fetch Carrot
 
 ```
-go get -v github.com/interviewstreet/carrot
+go get -v github.com/gophercarrot/carrot
 ```
 
 ## Running
 
-Go to $GOPATH/go/src/github.com/interviewstreet/carrot and run
+Go to $GOPATH/go/src/github.com/gophercarrot/carrot and run
 
 ```
 go run cmd/main.go
