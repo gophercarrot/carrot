@@ -30,5 +30,5 @@ func (counter *Counter) Failure() int {
 	counter.mtx.Lock()
 	counter.failure++
 	counter.mtx.Unlock()
-	return counter.success
+	return counter.failure
 }
